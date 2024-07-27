@@ -1,5 +1,5 @@
 "use client";
-import { FC } from "react";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -12,19 +12,11 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
-import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import axios from "axios";
 import Link from "next/link";
-import { toast } from "sonner";
 import { CreateFormProps } from "../../_interfaces/createFormProps";
 
-export const CreateForm: FC<CreateFormProps> = ({
-  formSchema,
-  defaultValues,
+export const CreateForm = <T,>({
   route,
   mainNameText,
   mainNameSubText,
@@ -32,24 +24,9 @@ export const CreateForm: FC<CreateFormProps> = ({
   descriptionText,
   placeholderText,
   fieldName,
-}) => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { defaultValues: defaultValues.value },
-  });
-
-  const router = useRouter();
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const response = await axios.post(`/api/admin/${route}/create`, values);
-      toast.success("Successfully created.");
-      router.push(`/admin/${route}/edit/${response.data.id}`);
-    } catch (error) {
-      toast.error("An error occurred during creation.");
-    }
-  };
-
+  onSubmit,
+  form,
+}: CreateFormProps<T>) => {
   const { isSubmitting } = form.formState;
 
   return (
@@ -88,7 +65,7 @@ export const CreateForm: FC<CreateFormProps> = ({
                 Creating...
               </Button>
             ) : (
-              <Button disabled={isSubmitting} type="submit">
+              <Button type="submit" disabled={isSubmitting}>
                 Create
               </Button>
             )}

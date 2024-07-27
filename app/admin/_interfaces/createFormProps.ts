@@ -1,8 +1,7 @@
-import { ZodObject } from "zod";
+import { ActionResponse } from "./actionResponse";
 
-export interface CreateFormProps {
-  formSchema: ZodObject<any, any>;
-  defaultValues: any;
+export interface CreateFormProps<T> {
+  form: any;
   route: string;
   mainNameText: string;
   mainNameSubText: string;
@@ -10,4 +9,5 @@ export interface CreateFormProps {
   descriptionText: string;
   placeholderText: string;
   fieldName: string;
+  onSubmit(values: T): Promise<void>;
 }

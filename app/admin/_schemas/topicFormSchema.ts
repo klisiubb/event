@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const createLectureSchema = z.object({
+export const topicFormSchema = z.object({
   topic: z
     .string()
     .min(10, { message: "The name must be at least 10 characters long." })
@@ -8,3 +8,4 @@ export const createLectureSchema = z.object({
       message: "The name cannot be more than 100 characters long.",
     }),
 });
+export type TopicFormSchema = z.infer<typeof topicFormSchema>;
