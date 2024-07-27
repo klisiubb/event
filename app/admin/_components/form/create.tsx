@@ -16,22 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ReloadIcon } from "@radix-ui/react-icons";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { z, ZodObject } from "zod";
+import { z } from "zod";
 import axios from "axios";
 import Link from "next/link";
 import { toast } from "sonner";
-
-interface CreateFormProps {
-  formSchema: ZodObject<any, any>;
-  defaultValues: any;
-  route: string;
-  mainNameText: string;
-  mainNameSubText: string;
-  labelText: string;
-  descriptionText: string;
-  placeholderText: string;
-  fieldName: string;
-}
+import { CreateFormProps } from "../../_interfaces/createFormProps";
 
 export const CreateForm: FC<CreateFormProps> = ({
   formSchema,
@@ -61,7 +50,7 @@ export const CreateForm: FC<CreateFormProps> = ({
     }
   };
 
-  const { isSubmitting, isSubmitSuccessful } = form.formState;
+  const { isSubmitting } = form.formState;
 
   return (
     <Card className="w-3/4 px-8 py-12">
