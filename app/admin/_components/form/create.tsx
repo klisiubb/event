@@ -99,10 +99,7 @@ export const CreateForm: FC<CreateFormProps> = ({
                 Creating...
               </Button>
             ) : (
-              <Button
-                disabled={isSubmitting || isSubmitSuccessful}
-                type="submit"
-              >
+              <Button disabled={isSubmitting} type="submit">
                 Create
               </Button>
             )}
